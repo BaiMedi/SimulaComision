@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Comisiones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .simulator-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .simulator-container label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        .simulator-container input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .results {
+            margin-top: 20px;
+            font-weight: bold;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Simulador de Comisiones</h1>
+
+<div class="simulator-container">
+    <label for="ventasDiarias">Número de Ventas Diarias</label>
+    <input type="number" id="ventasDiarias" placeholder="Introduce el número de ventas diarias" required>
+
+    <label for="comisionPorcentaje">Porcentaje de Comisión (%)</label>
+    <input type="number" id="comisionPorcentaje" placeholder="Introduce el porcentaje de comisión" required>
+
+    <label for="precioProducto">Precio del Producto ($)</label>
+    <input type="number" id="precioProducto" placeholder="Introduce el precio del producto en dólares" required>
+
+    <button onclick="calcularComisiones()">Calcular Ingresos</button>
+
+    <div class="results" id="resultados">
+        <p><strong>Ingresos diarios:</strong> $<span id="ingresosDiarios">0.00</span></p>
+        <p><strong>Ingresos semanales:</strong> $<span id="ingresosSemanales">0.00</span></p>
+        <p><strong>Ingresos mensuales:</strong> $<span id="ingresosMensuales">0.00</span></p>
+    </div>
+</div>
+
+<script>
+    function calcularComisiones() {
+        // Obtener valores de los inputs
+        const ventasDiarias = document.getElementById("ventasDiarias").value;
+        const comisionPorcentaje = document.getElementById("comisionPorcentaje").value;
+        const precioProducto = document.getElementById("precioProducto").value;
+
+        // Validar los inputs
+        if (!ventasDiarias || !comisionPorcentaje || !precioProducto) {
+            alert("Por favor, completa todos los campos.");
+            return;
+        }
+
+        // Calcular comisiones
+        const comisionDecimal = comisionPorcentaje / 100;
+        const ingresoPorVenta = precioProducto * comisionDecimal;
+        const ingresosDiarios = ingresoPorVenta * ventasDiarias;
+        const ingresosSemanales = ingresosDiarios * 7;
+        const ingresosMensuales = ingresosDiarios * 30;
+
+        // Mostrar resultados
+        document.getElementById("ingresosDiarios").innerText = ingresosDiarios.toFixed(2);
+        document.getElementById("ingresosSemanales").innerText = ingresosSemanales.toFixed(2);
+        document.getElementById("ingresosMensuales").innerText = ingresosMensuales.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
